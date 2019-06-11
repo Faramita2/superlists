@@ -5,14 +5,14 @@ from selenium.webdriver.common.keys import Keys
 import os
 import time
 
-
 MAX_WAIT = 10
 
 
 class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.Firefox(firefox_binary="/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin")
+        self.browser = webdriver.Firefox(
+            firefox_binary="/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin")
         staging_server = os.environ.get('STAGING_SERVER')
         if staging_server:
             self.live_server_url = 'http://' + staging_server
@@ -46,9 +46,9 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # 应用邀请她输入一个待办事项
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
-                inputbox.get_attribute('placeholder'),
-                'Enter a to-do item'
-                )
+            inputbox.get_attribute('placeholder'),
+            'Enter a to-do item'
+        )
 
         # 她在一个文本框中输入了 "Buy peacock feathers" (购买孔雀羽毛)
         # 伊迪丝的爱好是使用假蝇做饵钓鱼
@@ -59,7 +59,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
 
-
         # 页面中又显示了一个文本框, 可以输入其他的待办事项
         # 她输入了 "Use peacock feathers to make a fly" (使用孔雀羽毛做假蝇)
         # 伊迪丝做事很有理
@@ -69,7 +68,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # 页面再次更新, 她的清单中显示了这两个待办事项
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
         self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
-
 
         # 伊迪丝想知道这个网站是否会记住她的清单
         # 她看到网站为她生成了唯一的URL
@@ -96,7 +94,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         ## 我们使用一个新浏览器会话
         ## 确保伊迪丝的信息不会从cookie中泄露出去
         self.browser.quit()
-        self.browser = webdriver.Firefox(firefox_binary="/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin")
+        self.browser = webdriver.Firefox(
+            firefox_binary="/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin")
 
         # 弗朗西斯访问首页
         # 页面中看不到伊迪丝的清单
@@ -132,10 +131,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # 她看到输入框完美地居中显示
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
-                inputbox.location['x'] + inputbox.size['width'] / 2,
-                512,
-                delta=10
-                )
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+        )
 
         # 她新建了一个清单, 看到输入框仍能完美地居中显示
         inputbox.send_keys('testing')
@@ -143,10 +142,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.wait_for_row_in_list_table('1: testing')
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
-                inputbox.location['x'] + inputbox.size['width'] / 2,
-                512,
-                delta=10
-                )
-
-
-
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+        )
