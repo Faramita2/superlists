@@ -11,10 +11,8 @@ MAX_WAIT = 10
 class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
-        chrome_driver_binary = "/Applications/Google Chrome.app/Contents/MacOS/chromedriver"
-        self.browser = webdriver.Chrome(chrome_driver_binary)
-        # self.browser = webdriver.Firefox(
-        #    firefox_binary="/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin")
+        self.chrome_driver_binary = "/Applications/Google Chrome.app/Contents/MacOS/chromedriver"
+        self.browser = webdriver.Chrome(self.chrome_driver_binary)
         staging_server = os.environ.get('STAGING_SERVER')
         if staging_server:
             self.live_server_url = 'http://' + staging_server
@@ -96,8 +94,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         ## 我们使用一个新浏览器会话
         ## 确保伊迪丝的信息不会从cookie中泄露出去
         self.browser.quit()
-        self.browser = webdriver.Firefox(
-            firefox_binary="/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin")
+        self.browser = webdriver.Chrome(self.chrome_driver_binary)
 
         # 弗朗西斯访问首页
         # 页面中看不到伊迪丝的清单
