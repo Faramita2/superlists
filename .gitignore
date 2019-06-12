@@ -2,3 +2,7 @@ db.sqlite3
 geckodriver.log
 __pycache__
 *.pyc
+.DS_Store
+.idea
+test_func.sh
+test_lists.sh
