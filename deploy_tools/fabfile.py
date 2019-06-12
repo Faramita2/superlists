@@ -3,10 +3,10 @@ from fabric.api import env, local, run
 import random
 
 
-REPO_URL = 'https://github.com/Faramita2/superlists'
+REPO_URL = 'git@github.com:Faramita2/superlists.git'
 
 def deploy():
-    site_folder = f'/Users/{env.user}/Sites/{env.host}'
+    site_folder = f'/home/{env.user}/sites/{env.host}'
     source_folder = site_folder + '/source'
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder)
@@ -24,10 +24,10 @@ def _get_latest_source(source_folder):
         run(f'cd {source_folder} && git fetch')
     else:
         run(f'git clone {REPO_URL} {source_folder}')
-    current_commit = local("git log -n 1 --format=%H", capture=True)
+    current_commit = local(f"cd {source_folder} && git log -n 1 --format=%H", capture=True)
     run(f'cd {source_folder} && git reset --hard {current_commit}')
 
-def _update_settomgs(source_folder, site_name):
+def _update_settings(source_folder, site_name):
     settings_path = source_folder + '/superlists/settings.py'
     sed(settings_path, "DEBUG=True", "DEBUG=False")
     sed(settings_path, 'ALLOWED_HOSTS =.+$', f'ALLOWED_HOSTS = ["{site_name}"]')
