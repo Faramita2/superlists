@@ -6,3 +6,4 @@ __pycache__
 .idea
 test_func.sh
 test_lists.sh
+virtualenv
