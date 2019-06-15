@@ -7,7 +7,7 @@ User=meow
 WorkingDirectory=/home/meow/sites/SITENAME/source
 ExecStart=/home/meow/sites/SITENAME/virtualenv/bin/gunicorn \
     --bind unix:/tmp/SITENAME.socket \
-    superlists.wsgi.application
+    superlists.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
